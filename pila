@@ -1,0 +1,78 @@
+#include <iostream>
+
+using namespace std;
+
+struct Nodo {
+    int valor;
+    Nodo* Siguiente;
+};
+
+void insertar(Nodo*&, int);
+void eliminar(Nodo*&, int&);
+void mostrar(Nodo*);
+
+int main() {
+    Nodo* pila = NULL;
+    int opcion;
+    int dato;
+
+    do {
+        
+        cout << "\nPresione 1 para insertar" << endl;
+        cout << "Presione 2 para eliminar" << endl;
+        cout << "Presione 3 para mostrar" << endl;
+        cout << "Presione 4 para salir" << endl;
+        cin >> opcion;
+
+        switch (opcion) {
+            case 1:
+                cout << "Ingrese un numero: ";
+                cin >> dato;
+                insertar(pila, dato);
+                break;
+            case 2:
+                if (pila != NULL) {
+                    eliminar(pila, dato);
+                    cout << "El numero " << dato << " ha sido eliminado" << endl;
+                } else {
+                    cout << "La pila esta vacia." << endl;
+                }
+                break;
+            case 3:
+                if(pila!=NULL){
+                mostrar(pila);
+                }
+                else{
+                    std::cout << "La pila esta vacia" << std::endl;
+                }
+                break;
+        }
+    } while (opcion != 4);
+
+    return 0;
+}
+
+void insertar(Nodo*& pila, int n) {
+    Nodo* nuevo = new Nodo();
+    nuevo->valor = n;
+    nuevo->Siguiente = pila;
+    pila = nuevo;
+    std::cout << "El elemento ha sido agregado" << std::endl;
+}
+
+void eliminar(Nodo*& pila, int& n) {
+    Nodo* aux = pila;
+    n = aux->valor;
+    pila = aux->Siguiente;
+    delete aux;
+}
+
+void mostrar(Nodo* pila) {
+    Nodo* muestra = pila;
+    while (muestra != NULL) {
+        cout << muestra->valor << "->" ;
+        muestra = muestra->Siguiente;
+    }
+}
+
+
